@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <nav class="d-flex justify-content-between align-items-center col-12">
+        <h1 class="text-center">Rock On {{user.first_name.title()}}!!!</h1>
+        <div class="d-flex col-4 justify-content-around">
+            <a href="/mybands" class='btn btn-secondary'>My bands</a>
+            <a href="/new/band" class="btn btn-primary">Add New Band</a>
+            <a href="/logout" class="btn btn-info">Logout</a>
+        </div>
+
+    </nav>
+    <div class="col-8 mx-auto">
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Band Name</th>
+                    <th>Genre</th>
+                    <th>Home city</th>
+                    <th>Founding Member</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for band in bands %}
+                <tr>
+                    <td>{{band.name}}</td>
+                    <td>{{band.genre}}</td>
+                    <td>{{band.city}}</td>
+                    <td>{{ band.user.first_name }} {{ band.user.last_name }}</td>
+                    <td>
+                        {% if band.user_id == session.user_id %}
+                        <a href="/edit/band/{{band.id}}" class="btn btn-info">Edit</a>
+                        <form action="/destroy/band/{{band.id}}" method="post">
+                            <input type='submit' value='Delete' class="btn btn-danger"></form>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

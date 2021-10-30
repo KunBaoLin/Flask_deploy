@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>New Band</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="d-flex justify-content-between align-items-center col-12">
+        <h1 class="text-center">Rock On {{user.first_name.title()}}!!!</h1>
+        <div class="d-flex col-4 justify-content-around">
+            <a href="/mybands" class='btn btn-secondary'>My bands</a>
+            <a href="/dashboard" class="btn btn-primary">Dashboard</a>
+            <a href="/logout" class="btn btn-info">Logout</a>
+
+        </div>
+
+    </nav>
+    <form action="/create/band" method="post" class="p-5 col-4 bg-dark text-light mx-auto">
+        <h2 class="text-primary">Create a New Band</h2>
+        {% with messages = get_flashed_messages(category_filter=['band']) %}
+            {% if messages %}
+            <div class="alert alert-danger" role="alert">
+                <strong>Flash AHHHHHHH!!!!</strong>
+                    {% for message in messages %}
+                    <p>{{message}}</p>
+                    {% endfor %}
+            </div>
+            {% endif %}
+        {% endwith %}
+        <div class="form-group">
+            <label for="name">Band Name</label>
+            <input type="text" name="name" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="genre">Music Genre</label>
+            <input type="text" name="genre" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="city">Home City</label>
+            <input type="text" name="city" class="form-control">
+        </div>
+        <div>
+            <input type="submit" value="Create" class="btn btn-primary">
+        </div>
+    </form>
+</body>
+</html>
